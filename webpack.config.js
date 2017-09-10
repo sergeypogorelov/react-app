@@ -7,11 +7,23 @@ module.exports = {
         main: './main'
     },
     resolve: {
-        extensions: ['.js']
+        extensions: ['.jsx', '.js']
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js'
+    },
+    module: {
+        loaders: [
+            {
+                test: /\.jsx?$/,
+                loader: 'babel-loader',
+                include: [ path.resolve(__dirname, 'src') ],
+                query: {
+                    presets: ['es2015', 'react']
+                }
+            }
+        ]
     },
     plugins: [
         new HtmlWebpackPlugin({

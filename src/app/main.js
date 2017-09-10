@@ -1,1 +1,1 @@
-document.getElementById('app').innerText = 'Hello World!';
+import App from './app';
