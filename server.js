@@ -1,17 +1,17 @@
 const path = require('path');
 const express = require('express');
 
-const PORT = 3000;
-const DIST_PATH = path.resolve(__dirname, 'dist');
+const config = require('./app.config');
 
-var app = express();
+const PORT = 4647;
+const APP = express();
 
-app.use(express.static(DIST_PATH));
+APP.use(express.static(config.paths.dist));
 
-app.get('*', function(req, res) {
-    res.sendFile(path.join(DIST_PATH, 'index.html'));
+APP.get('*', function(req, res) {
+    res.sendFile(path.join(config.paths.dist, 'index.html'));
 });
 
-app.listen(PORT);
+APP.listen(PORT);
 
 console.log('Express server is listening on port "' + PORT + '".');

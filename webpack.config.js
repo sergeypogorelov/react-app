@@ -1,8 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const config = require('./app.config');
+
 module.exports = {
-    context: path.resolve(__dirname, 'src', 'app'),
+    context: config.paths.app,
     entry: {
         main: './main'
     },
@@ -10,7 +12,7 @@ module.exports = {
         extensions: ['.jsx', '.js']
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: config.paths.dist,
         filename: '[name].bundle.js'
     },
     module: {
@@ -18,7 +20,7 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 loader: 'babel-loader',
-                include: [ path.resolve(__dirname, 'src') ],
+                include: [ config.paths.src ],
                 query: {
                     presets: ['es2015', 'react']
                 }
@@ -27,9 +29,9 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
+            hash: true,
             title: 'index.html',
-            template: path.resolve(__dirname, 'src', 'index.html'),
-            hash: true
+            template: path.join(config.paths.src, 'index.html')
         })
     ],
     watch: false
