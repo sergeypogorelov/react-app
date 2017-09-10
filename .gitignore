@@ -1,0 +1,9 @@
+# Ignore npm modules
+/node_modules/
+
+# Ignore builts
+/dist/
+
+# Ignore others
+/.awcache/
+/.vscode/
