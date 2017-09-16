@@ -4,9 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = require('./app.config');
 
 module.exports = {
-    context: config.paths.app,
+    context: config.paths.src,
     entry: {
-        main: './main'
+        index: './index'
     },
     resolve: {
         extensions: ['.jsx', '.js']
@@ -23,6 +23,14 @@ module.exports = {
                 include: [ config.paths.src ],
                 query: {
                     presets: ['es2015', 'react']
+                }
+            },
+            {
+                test: /\.(jpg|png|eot|woff2|woff|ttf|svg)$/,
+                loader: 'file-loader',
+                include: [ config.paths.assets ],
+                options: {
+                    name: '[path][name].[ext]'
                 }
             }
         ]

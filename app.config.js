@@ -3,12 +3,17 @@ const path = require('path');
 const SRC_PATH = path.resolve(__dirname, 'src');
 const DIST_PATH = path.resolve(__dirname, 'dist');
 
-const APP_PATH = path.join(SRC_PATH, 'app');
+const APPLICATION_PATH = path.join(SRC_PATH, 'application');
+const ASSETS_PATH = path.join(SRC_PATH, 'assets');
 
 module.exports = {
     paths: {
-        app: APP_PATH,
+        
         src: SRC_PATH,
-        dist: DIST_PATH
+        dist: DIST_PATH,
+
+        application: APPLICATION_PATH,
+        assets: ASSETS_PATH
+        
     }
 };
