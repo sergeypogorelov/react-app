@@ -1,5 +1,7 @@
 const path = require('path');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 const config = require('./app.config');
 
@@ -17,6 +19,14 @@ module.exports = {
     },
     module: {
         loaders: [
+            {
+                test: /\.css$/,
+                include: [ config.paths.src ],
+                use: ExtractTextWebpackPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader'
+                })
+            },
             {
                 test: /\.jsx?$/,
                 loader: 'babel-loader',
@@ -36,6 +46,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new ExtractTextWebpackPlugin('[name].css'),
         new HtmlWebpackPlugin({
             hash: true,
             title: 'index.html',
