@@ -1,5 +1,5 @@
-import './reset.css';
-import './index.css';
+import './reset.scss';
+import './index.scss';
 
 import './assets/img/ballet.jpg';
 import './assets/img/island.jpg';

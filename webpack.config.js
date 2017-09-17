@@ -28,6 +28,14 @@ module.exports = {
                 })
             },
             {
+                test: /\.scss$/,
+                include: [ config.paths.src ],
+                use: ExtractTextWebpackPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'sass-loader']
+                })
+            },
+            {
                 test: /\.jsx?$/,
                 loader: 'babel-loader',
                 include: [ config.paths.src ],
