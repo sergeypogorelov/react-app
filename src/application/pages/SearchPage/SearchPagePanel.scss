@@ -1,0 +1,29 @@
+@import '../../common/scss/base.scss';
+
+.info {
+    padding: 15px 30px;
+    background: $infoBgColor
+}
+
+.info-content, .info-sort {
+    font-size: 18px;
+    font-weight: bold;
+    color: $infoDefaultColor;
+}
+
+.info-content {
+    float: left;
+}
+
+.info-sort {
+    float: right;
+}
+
+.info-sort-link {
+    margin-left: 15px;
+    color: $infoPrimaryColor;
+}
+
+.info-sort-link.active {
+    color: $infoDefaultColor;
+}

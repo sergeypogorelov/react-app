@@ -1,0 +1,93 @@
+@import '../../common/scss/base.scss';
+
+.wrapper-header {
+    height: 300px;
+    background: url('/assets/img/search-background.jpg') -50px -120px;    
+}
+
+.wrapper-header-background {
+    height: 300px;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.wrapper-header-content {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.wrapper-header-content-title {
+    margin: 0;
+    padding-top: 10px;
+    font-size: 15px;
+    color: $primaryTitleColor;
+}
+
+.wrapper-header-content-title > .link {
+    padding: 5px 15px;
+    float: right;
+    font-size: 15px;
+    color: $primaryBtnBgColor;
+    background: $defaultBtnBgColor;
+    border: none;
+    border-radius: 2px;
+}
+
+/*
+    Search Form
+*/
+
+.search-top {
+    margin-top: 60px;
+}
+
+.search-top-title {
+    color: $defaultTitleColor;
+}
+
+.search-top-input {
+    width: 100%;
+    height: 35px;
+    padding-left: 10px;
+    border: none;
+    color: $defaultTxtColor;
+    background-color: $defaultBgColor;
+    border-bottom: 2px solid $primaryBorderColor;
+}
+
+.search-label, .search-button {
+    float: left;
+}
+
+.search-label {
+    margin-top: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    color: $defaultTxtColor;
+}
+
+.search-button {
+    margin-top: 25px;
+    margin-left: 15px;
+    padding: 5px 15px;
+    font-size: 15px;
+    color: $primaryBtnTxtColor;
+    background: $primaryBtnBgColor;
+    border: none;
+    border-radius: 2px;
+}
+
+.search-button.active {
+    background: $disabledBtnBgColor;
+}
+
+.search-submit {
+    margin-top: 20px;
+    margin-left: 15px;
+    padding: 10px 50px;
+    float: right;
+    font-size: 18px;
+    color: $primaryBtnTxtColor;
+    background: $primaryBtnBgColor;
+    border: none;
+    border-radius: 2px;
+}

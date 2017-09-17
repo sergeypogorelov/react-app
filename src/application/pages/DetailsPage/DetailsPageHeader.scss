@@ -1,0 +1,84 @@
+@import '../../common/scss/base.scss';
+@import '../SearchPage/SearchPageHeader.scss';
+
+.wrapper-header.details {
+    height: 450px;
+    background: url('/assets/img/details-background.jpg') -50px -120px;    
+}
+
+.wrapper-header-background.details {
+    height: 450px;
+}
+
+.wrapper-header-content.details {
+    width: 700px;
+}
+
+.wrapper-header-content-title.details {
+    margin: 0 50px;
+}
+
+.wrapper-header-content-details {
+    margin-top: 50px;
+}
+
+
+
+/*
+    Details Page
+*/
+
+.details-image {
+    float: left;
+}
+
+.details-description {
+    margin-left: 250px;
+}
+
+.details-description-genre, .details-description-text, .details-description-small {
+    color: $contentColor;
+}
+
+.details-description-title {
+    margin: 0;
+    font-size: 30px;
+    color: $primaryTitleColor;
+}
+
+.details-description-rating {
+    margin-left: 10px;
+    padding: 5px;
+    vertical-align: top;
+    font-size: 20px;
+    font-weight: normal;
+    color: $positiveColor;
+    border: 1px solid $positiveColor;
+    border-radius: 50%;
+}
+
+.details-description-genre {
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-size: 18px;
+}
+
+.details-description-info {
+    margin-top: 15px;
+    margin-bottom: 0;
+    font-weight: bold;
+    color: $defaultTxtColor;
+}
+
+.details-description-duration {
+    margin-left: 15px;
+}
+
+.details-description-text {
+    margin-top: 25px;
+    font-size: 17px;
+}
+
+.small-text {
+    font-size: 12px;
+}
