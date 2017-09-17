@@ -25,14 +25,27 @@
     background: url('/assets/img/search-background.jpg') -50px -120px;    
 }
 
+.wrapper-header.details {
+    height: 450px;
+    background: url('/assets/img/details-background.jpg') -50px -120px;    
+}
+
 .wrapper-header-background {
     height: 300px;
     background: rgba(0, 0, 0, 0.8);
 }
 
+.wrapper-header-background.details {
+    height: 450px;
+}
+
 .wrapper-header-content {
     width: 600px;
     margin: 0 auto;
+}
+
+.wrapper-header-content.details {
+    width: 700px;
 }
 
 .wrapper-header-content-title {
@@ -41,6 +54,28 @@
     font-size: 15px;
     color: rgb(245, 82, 99);
 }
+
+.wrapper-header-content-title.details {
+    margin: 0 50px;
+}
+
+.wrapper-header-content-title > .link {
+    padding: 5px 15px;
+    float: right;
+    font-size: 15px;
+    color: rgb(245, 82, 99);
+    background: rgb(255, 255, 255);
+    border: none;
+    border-radius: 2px;
+}
+
+.wrapper-header-content-details {
+    margin-top: 50px;
+}
+
+/*
+    Search Form
+*/
 
 .search-top {
     margin-top: 60px;
@@ -99,6 +134,65 @@
 }
 
 /*
+    Details Page
+*/
+
+.details-image {
+    float: left;
+}
+
+.details-description {
+    margin-left: 250px;
+}
+
+.details-description-genre, .details-description-text, .details-description-small {
+    color: rgb(217, 217, 217);
+}
+
+.details-description-title {
+    margin: 0;
+    font-size: 30px;
+    color: rgb(245, 82, 99);
+}
+
+.details-description-rating {
+    margin-left: 10px;
+    padding: 5px;
+    vertical-align: top;
+    font-size: 20px;
+    font-weight: normal;
+    color: rgb(184, 233, 134);
+    border: 1px solid rgb(184, 233, 134);
+    border-radius: 50%;
+}
+
+.details-description-genre {
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-size: 18px;
+}
+
+.details-description-info {
+    margin-top: 15px;
+    margin-bottom: 0;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+
+.details-description-duration {
+    margin-left: 15px;
+}
+
+.details-description-text {
+    margin-top: 25px;
+    font-size: 17px;
+}
+
+.small-text {
+    font-size: 12px;
+}
+
+/*
     Content
 */
 
@@ -107,7 +201,7 @@
     background: rgb(245, 245, 245);
 }
 
-.info-count, .info-sort {
+.info-content, .info-sort {
     font-size: 18px;
     font-weight: bold;
     color: rgb(60, 60, 60);

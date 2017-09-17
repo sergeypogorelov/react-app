@@ -6,43 +6,36 @@
     <body>
         <div id="app"></div>
         <div class="wrapper">
-            <div class="wrapper-header details">
-                <div class="wrapper-header-background details">
-                   <div class="wrapper-header-content details">
-                        <h1 class="wrapper-header-content-title details clearfix">
-                            Netflix Roulete
-                            <a class="link">SEARCH</a>
-                        </h1>
-                        <div class="wrapper-header-content-details">
-                            <div class="details clearfix">
-                                <div class="details-image">
-                                    <img src="/assets/img/island.jpg">
+            <div class="wrapper-header">
+                <div class="wrapper-header-background">
+                   <div class="wrapper-header-content">
+                        <h1 class="wrapper-header-content-title">Netflix Roulete</h1>
+                        <div class="wrapper-header-content-search">
+                            <form class="search">
+                                <div class="search-top">
+                                    <h3 class="search-top-title">FIND YOUR MOVIE</h3>
+                                    <input class="search-top-input" value="John Smith">
                                 </div>
-                                <div class="details-description">
-                                    <h3 class="details-description-title">
-                                        Island Vol. 2
-                                        <span class="details-description-rating">4.1</span>
-                                    </h3>
-                                    <p class="details-description-genre">Dramas</p>
-                                    <p class="details-description-info">
-                                        <span class="details-description-year">2005</span>
-                                        <span class="details-description-duration">133 min</span>
-                                    </p>
-                                    <p class="details-description-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>
-                                    <div class="details-description-small">
-                                        <p class="small-text">Director: John Smith</p>
-                                        <p class="small-text">Cast: Vivamus Elementum, Semper Nisi, Aenean Vulputate, Eleifend Tellus, Aenean Leo Ligula, Porttitor Eu, Consequat Vitae, Eleifend Ac, Enim</p>
-                                    </div>
+                                <div class="search-bottom clearfix">
+                                    <p class="search-label">SEARCH BY</p>
+                                    <input class="search-button" type="button" value="TITLE">
+                                    <input class="search-button active" type="button" value="DIRECTOR">
+                                    <input class="search-submit" type="submit" value="SEARCH">
                                 </div>
-                            </div>
+                            </form>
                         </div>
                    </div>
                 </div>
             </div>
             <div class="wrapper-content">
                 <div class="info clearfix">
-                    <div class="info-content">
-                        Films by John Smith
+                    <div class="info-count">
+                        7 movies found
+                    </div>
+                    <div class="info-sort">
+                        Sort by
+                        <a class="info-sort-link active">release data</a>
+                        <a class="info-sort-link">rating</a>
                     </div>
                 </div>
                 <div class="wrapper-content-films clearfix">

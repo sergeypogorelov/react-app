@@ -6,6 +6,7 @@ import './assets/img/island.jpg';
 import './assets/img/wings.jpg';
 
 import './assets/img/search-background.jpg';
+import './assets/img/details-background.jpg';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
