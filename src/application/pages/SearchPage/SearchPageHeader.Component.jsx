@@ -2,23 +2,45 @@ import React from 'react';
 
 import './SearchPageHeader.scss';
 
+import FilmsStorage from '../../storages/FilmsStorage';
+
 export default class SearchPageHeader extends React.Component {
 
     constructor() {
         super();
         this.state = {
-            searchType: 'title',
-            searchQuery: ''
+            searchQuery: '',
+            searchType: FilmsStorage.searchType
         };
+    }
+
+    componentWillMount() {
+        this.state.searchQuery = this.props.query;
+    }
+
+    setSearchByTitle(ev) {
+        ev.preventDefault();
+
+        FilmsStorage.searchType = 'title';
+        this.setState({
+            searchQuery: this.state.searchQuery,
+            searchType: 'title'
+        });
+    }
+
+    setSearchByDirector(ev) {
+        ev.preventDefault();
+
+        FilmsStorage.searchType = 'director';
+        this.setState({
+            searchQuery: this.state.searchQuery,
+            searchType: 'director'
+        });
     }
 
     submitHandler(ev) {
         ev.preventDefault();
-
-        let searchQuery = this.state.searchQuery;
-        let searchType = this.state.searchType;
-
-        this.props.onSubmit({ searchQuery, searchType });
+        this.props.onSubmit({ searchQuery: this.state.searchQuery });
     }
 
     searchQueryHandler(ev) {
@@ -37,12 +59,12 @@ export default class SearchPageHeader extends React.Component {
                             <form className="search" onSubmit={this.submitHandler.bind(this)}>
                                 <div className="search-top">
                                     <h3 className="search-top-title">FIND YOUR MOVIE</h3>
-                                    <input className="search-top-input" name="query" value={this.state.searchQuery} onChange={this.searchQueryHandler.bind(this)} />
+                                    <input className="search-top-input" value={this.state.searchQuery} onChange={this.searchQueryHandler.bind(this)} />
                                 </div>
                                 <div className="search-bottom clearfix">
                                     <p className="search-label">SEARCH BY</p>
-                                    <input className="search-button" type="button" value="TITLE" />
-                                    <input className="search-button active" type="button" value="DIRECTOR" />
+                                    <input className={ this.state.searchType === 'title' ? 'search-button active' : 'search-button' } onClick={this.setSearchByTitle.bind(this)} type="button" value="TITLE" />
+                                    <input className={ this.state.searchType === 'director' ? 'search-button active' : 'search-button' } onClick={this.setSearchByDirector.bind(this)} type="button" value="DIRECTOR" />
                                     <input className="search-submit" type="submit" value="SEARCH" />
                                 </div>
                             </form>

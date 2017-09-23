@@ -17,35 +17,36 @@ export default class SearchPage extends React.Component {
         super();
         this.state = {
             films: [],
-            filmsLoaded: false,
-            searchSubmit: false,
-            searchQuery: ''
+            filmsLoaded: false
         };
     }
 
     componentWillMount() {
-        this.state.searchQuery = this.props.match.params.query;
+        this.state.searchQuery = this.props.match.params.query || '';
     }
 
     componentDidMount() {
-        this.loadFilms(this.state.searchQuery, 'title');
+        this.loadFilms(this.state.searchQuery);
     }
 
     searchFormHandler(searchParams) {
         if (this.state.searchQuery !== searchParams.searchQuery) {
-            this.changeState({searchSubmit: true, searchQuery: searchParams.searchQuery});
+            this.props.history.push('/search/' + searchParams.searchQuery);  
         }
+
+        this.loadFilms(searchParams.searchQuery);
+    }
+
+    searchPanelHandler() {
+        this.loadFilms(this.state.searchQuery);
     }
 
     render() {
-        if (this.state.searchSubmit)
-            return <Redirect to={ '/search/' + this.state.searchQuery } />;
-
         return (
             <div className="wrapper">
-                <SearchPageHeader onSubmit={this.searchFormHandler.bind(this)} />
+                <SearchPageHeader query={this.state.searchQuery} onSubmit={this.searchFormHandler.bind(this)} />
                 <div className="wrapper-content">
-                    <SearchPagePanel />
+                    <SearchPagePanel films={this.state.films} filmsLoaded={this.state.filmsLoaded} onSortChange={this.searchPanelHandler.bind(this)} />
                     <FilmsList films={this.state.films} filmsLoaded={this.state.filmsLoaded} />
                 </div>
                 <Footer />
@@ -53,8 +54,9 @@ export default class SearchPage extends React.Component {
         );
     }
 
-    loadFilms(query, type) {
-        FilmsStorage.searchItem(query, type).then((films) => {
+    loadFilms(query) {
+        this.changeState({ searchQuery: query, filmsLoaded: false });
+        FilmsStorage.searchItem(query).then((films) => {
             this.changeState({ films, filmsLoaded: true });
         });
     }
