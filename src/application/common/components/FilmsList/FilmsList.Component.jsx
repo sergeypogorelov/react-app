@@ -2,68 +2,25 @@ import React from 'react';
 
 import './FilmsList.scss';
 
+import FilmsListItem from './FilmsListItem.Component';
+
 export default class FilmsList extends React.Component {
 
     render() {
-        let dataList = [
-            {
-                title: 'Ballet: VOL. 1',
-                year: '2003',
-                genre: 'Dramas',
-                image: '/assets/img/ballet.jpg'
-            },
-            {
-                title: 'Island: VOL. 2',
-                year: '2005',
-                genre: 'Dramas',
-                image: '/assets/img/island.jpg'
-            },
-            {
-                title: 'Header: VOL. 3',
-                year: '2008',
-                genre: 'Fantasy',
-                image: '/assets/img/wings.jpg'
-            },
-            {
-                title: 'Island: VOL. 2',
-                year: '2005',
-                genre: 'Dramas',
-                image: '/assets/img/island.jpg'
-            },
-            {
-                title: 'Header: VOL. 3',
-                year: '2008',
-                genre: 'Fantasy',
-                image: '/assets/img/wings.jpg'
-            },
-            {
-                title: 'Ballet: VOL. 1',
-                year: '2003',
-                genre: 'Dramas',
-                image: '/assets/img/ballet.jpg'
-            }
-        ];
+        let notLoadedMessage = this.props.notLoadedMessage || 'Loading...';
+        let notFoundMessage = this.props.notFoundMessage || 'No films found';
+
+        if (!this.props.filmsLoaded) {
+            return <h1>{ notLoadedMessage }</h1>;
+        }
+
+        if (!this.props.films.length) {
+            return <h1>{ notFoundMessage }</h1>;
+        }
 
         return (
             <div className="wrapper-content-films clearfix">
-                {
-                    dataList.map(i => {
-                        return (
-                            <div className="film">
-                                <div className="film-poster">
-                                    <a href="/details">
-                                        <img className="film-poster-image" src={ i.image } />
-                                    </a>
-                                </div>
-                                <div className="film-title clearfix">
-                                    <h4 className="film-title-content">{ i.title }</h4>
-                                    <p className="film-title-year">{ i.year }</p>
-                                </div>
-                                <p className="film-genre">{ i.genre }</p>
-                            </div>
-                        );
-                    })
-                }
+                { this.props.films.map(i => <FilmsListItem key={i.name} item={i} />) }
             </div>
         );
     }

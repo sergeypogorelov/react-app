@@ -8,18 +8,22 @@ import './assets/img/details-background.jpg';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import SearchPage from './application/pages/SearchPage/SearchPage.Component';
+import EmptySearchPage from './application/pages/SearchPage/EmptySearchPage.Component';
+
 import DetailsPage from './application/pages/DetailsPage/DetailsPage.Component';
+import NotFoundPage from './application/pages/NotFound/NotFoundPage.Component';
 
 ReactDOM.render(
-    <BrowserRouter>
+    <Router>
         <Switch>
-            <Route path="/" component={SearchPage} exact />
-            <Route path="/search" component={SearchPage} />
-            <Route path="/details" component={DetailsPage} />
+            <Route path="/" component={EmptySearchPage} exact />
+            <Route path="/search/:query" component={SearchPage} />
+            <Route path="/film/:title" component={DetailsPage} />
+            <Route path="*" component={NotFoundPage} />
         </Switch>
-    </BrowserRouter>,
+    </Router>,
     document.getElementById('app')
 );
