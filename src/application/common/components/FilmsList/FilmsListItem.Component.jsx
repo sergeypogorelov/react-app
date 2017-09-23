@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './FilmsListItem.scss';
 
@@ -10,9 +11,9 @@ export default class FilmsListItem extends React.Component {
         return (
             <div className="film">
                 <div className="film-poster">
-                    <a href="/details">
+                    <Link to={ '/film/' + i.name }>
                         <img className="film-poster-image" src={ i.image } />
-                    </a>
+                    </Link>
                 </div>
                 <div className="film-title clearfix">
                     <h4 className="film-title-content">{ i.title }</h4>

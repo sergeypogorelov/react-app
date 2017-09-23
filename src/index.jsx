@@ -19,7 +19,7 @@ ReactDOM.render(
         <Switch>
             <Route path="/" component={SearchPage} exact />
             <Route path="/search/:query" component={SearchPage} />
-            <Route path="/film/:title" component={DetailsPage} />
+            <Route path="/film/:name" component={DetailsPage} />
             <Route path="*" component={NotFoundPage} />
         </Switch>
     </Router>,

@@ -31,20 +31,25 @@ export default class FilmsStorage {
             let items = DATA.filter(i => i.name === name);
 
             if (items.length === 0) {
-                resolve(items[0]);
-            } else {
                 resolve(null);
+            } else {
+                resolve(items[0]);
             }
         });
     }
 
-    static searchItem(strToSearch) {
+    static searchItem(strToSearch, searchType, searchSort) {
+
+        searchType = searchType || this.searchType;
+        searchSort = searchSort || this.searchSort;
+
         return new Promise((resolve, reject) => {
             if (strToSearch) {
 
+                let search = strToSearch.toLowerCase();
                 let items = DATA
-                    .filter(i => i[this.searchType].indexOf(strToSearch) !== -1)
-                    .sort((a, b) => a[this.searchSort] > b[this.searchSort]);
+                    .filter(i => i[searchType].toLowerCase().indexOf(search) !== -1)
+                    .sort((a, b) => a[searchSort] > b[searchSort]);
 
                 resolve(items);
 
@@ -52,5 +57,6 @@ export default class FilmsStorage {
                 resolve([]);
             }
         });
+        
     }
 }
