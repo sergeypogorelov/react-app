@@ -8,7 +8,7 @@ import './assets/img/details-background.jpg';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
 import SearchPage from './application/pages/SearchPage/SearchPage.Component';
 import DetailsPage from './application/pages/DetailsPage/DetailsPage.Component';

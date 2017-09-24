@@ -8,20 +8,16 @@ export default class SearchPageHeader extends React.Component {
 
     constructor() {
         super();
-        this.state = {
-            searchQuery: '',
-            searchType: FilmsStorage.searchType
-        };
+        this.state = {};
     }
 
     componentWillMount() {
         this.state.searchQuery = this.props.query;
+        this.state.searchType = this.props.type;
     }
 
     setSearchByTitle(ev) {
         ev.preventDefault();
-
-        FilmsStorage.searchType = 'title';
         this.setState({
             searchQuery: this.state.searchQuery,
             searchType: 'title'
@@ -30,8 +26,6 @@ export default class SearchPageHeader extends React.Component {
 
     setSearchByDirector(ev) {
         ev.preventDefault();
-
-        FilmsStorage.searchType = 'director';
         this.setState({
             searchQuery: this.state.searchQuery,
             searchType: 'director'
@@ -40,7 +34,11 @@ export default class SearchPageHeader extends React.Component {
 
     submitHandler(ev) {
         ev.preventDefault();
-        this.props.onSubmit({ searchQuery: this.state.searchQuery });
+
+        let searchQuery = this.state.searchQuery;
+        let searchType = this.state.searchType;
+
+        this.props.onSubmit({ searchQuery, searchType });
     }
 
     searchQueryHandler(ev) {

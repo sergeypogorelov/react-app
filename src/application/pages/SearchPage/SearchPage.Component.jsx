@@ -1,7 +1,8 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 
 import './SearchPage.scss';
+
+import URL from '../../helpers/URL';
 
 import FilmsStorage from '../../storages/FilmsStorage';
 
@@ -22,31 +23,54 @@ export default class SearchPage extends React.Component {
     }
 
     componentWillMount() {
+        let params = URL.parseQuery(this.props.location.search);
+
         this.state.searchQuery = this.props.match.params.query || '';
+        this.state.searchType = params.searchType || 'title';
+        this.state.searchSort = params.searchSort || 'pubdate';
     }
 
     componentDidMount() {
-        this.loadFilms(this.state.searchQuery);
+        this.loadFilms(this.state.searchQuery, this.state.searchType, this.state.searchSort);
     }
 
     searchFormHandler(searchParams) {
-        if (this.state.searchQuery !== searchParams.searchQuery) {
-            this.props.history.push('/search/' + searchParams.searchQuery);  
-        }
+        let searchQueryChanged = this.state.searchQuery !== searchParams.searchQuery;
+        let searchTypeChanged = this.state.searchType !== searchParams.searchType;
 
-        this.loadFilms(searchParams.searchQuery);
+        if (searchQueryChanged || searchTypeChanged) {
+            let queryParams = {
+                searchType: searchParams.searchType,
+                searchSort: this.state.searchSort
+            };
+
+            let url = '/search/' + searchParams.searchQuery + URL.generateQuery(queryParams);
+            this.props.history.push(url);
+
+            this.loadFilms(searchParams.searchQuery, searchParams.searchType, this.state.searchSort);
+        }
     }
 
-    searchPanelHandler() {
-        this.loadFilms(this.state.searchQuery);
+    searchPanelHandler(searchPanelParams) {
+        if (this.state.searchSort !== searchPanelParams.sortType) {
+            let queryParams = {
+                searchType: this.state.searchType,
+                searchSort: searchPanelParams.sortType
+            };
+
+            let url = '/search/' + this.state.searchQuery + URL.generateQuery(queryParams);
+            this.props.history.push(url);
+
+            this.loadFilms(this.state.searchQuery, this.state.searchType, searchPanelParams.sortType);
+        }
     }
 
     render() {
         return (
             <div className="wrapper">
-                <SearchPageHeader query={this.state.searchQuery} onSubmit={this.searchFormHandler.bind(this)} />
+                <SearchPageHeader query={this.state.searchQuery} type={this.state.searchType} onSubmit={this.searchFormHandler.bind(this)} />
                 <div className="wrapper-content">
-                    <SearchPagePanel films={this.state.films} filmsLoaded={this.state.filmsLoaded} onSortChange={this.searchPanelHandler.bind(this)} />
+                    <SearchPagePanel sortType={this.state.searchSort} films={this.state.films} filmsLoaded={this.state.filmsLoaded} onSortChange={this.searchPanelHandler.bind(this)} />
                     <FilmsList films={this.state.films} filmsLoaded={this.state.filmsLoaded} />
                 </div>
                 <Footer />
@@ -54,9 +78,14 @@ export default class SearchPage extends React.Component {
         );
     }
 
-    loadFilms(query) {
-        this.changeState({ searchQuery: query, filmsLoaded: false });
-        FilmsStorage.searchItem(query).then((films) => {
+    loadFilms(query, type, sort) {
+        this.changeState({
+            searchQuery: query,
+            searchType: type,
+            searchSort: sort,
+            filmsLoaded: false
+        });
+        FilmsStorage.searchItem(query, type, sort).then((films) => {
             this.changeState({ films, filmsLoaded: true });
         });
     }

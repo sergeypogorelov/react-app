@@ -8,31 +8,31 @@ export default class SearchPagePanel extends React.Component {
     
     constructor() {
         super();
-        this.state = {
-            sortType: FilmsStorage.searchSort
-        };
+        this.state = {};
+    }
+
+    componentWillMount() {
+        this.state.sortType = this.props.sortType || 'pubdate';
     }
 
     setSortByPubdate(ev) {
         ev.preventDefault();
-        
-        FilmsStorage.searchSort = 'pubdate';
+
         this.setState({
             sortType: 'pubdate'
         });
 
-        this.props.onSortChange();
+        this.props.onSortChange({ sortType: 'pubdate' });
     }
 
     setSortByRating(ev) {
         ev.preventDefault();
 
-        FilmsStorage.searchSort = 'rating';
         this.setState({
             sortType: 'rating'
         });
 
-        this.props.onSortChange();
+        this.props.onSortChange({ sortType: 'rating' });
     }
 
     render() {
