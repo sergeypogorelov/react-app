@@ -1,8 +1,8 @@
-@import '../../common/scss/base.scss';
+@import '../../../common/scss/base.scss';
 
 .info {
     padding: 15px 30px;
-    background: $infoBgColor;
+    background: $infoBgColor
 }
 
 .info-content, .info-sort {

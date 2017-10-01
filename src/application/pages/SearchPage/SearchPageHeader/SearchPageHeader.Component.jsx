@@ -2,7 +2,7 @@ import React from 'react';
 
 import './SearchPageHeader.scss';
 
-import FilmsStorage from '../../storages/FilmsStorage';
+import FilmsStorage from '../../../storages/FilmsStorage';
 
 export default class SearchPageHeader extends React.Component {
 

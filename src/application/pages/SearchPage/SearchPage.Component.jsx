@@ -9,8 +9,8 @@ import FilmsStorage from '../../storages/FilmsStorage';
 import FilmsList from '../../common/components/FilmsList/FilmsList.Component';
 import Footer from '../../common/components/Footer/Footer.Component';
 
-import SearchPageHeader from './SearchPageHeader.Component';
-import SearchPagePanel from './SearchPagePanel.Component';
+import SearchPageHeader from './SearchPageHeader/SearchPageHeader.Component';
+import SearchPagePanel from './SearchPagePanel/SearchPagePanel.Component';
 
 export default class SearchPage extends React.Component {
 

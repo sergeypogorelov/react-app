@@ -7,8 +7,8 @@ import FilmsStorage from '../../storages/FilmsStorage';
 import FilmsList from '../../common/components/FilmsList/FilmsList.Component';
 import Footer from '../../common/components/Footer/Footer.Component';
 
-import DetailsPageHeader from './DetailsPageHeader.Component';
-import DetailsPagePanel from './DetailsPagePanel.Component';
+import DetailsPageHeader from './DetailsPageHeader/DetailsPageHeader.Component';
+import DetailsPagePanel from './DetailsPagePanel/DetailsPagePanel.Component';
 
 export default class DetailsPage extends React.Component {
 
