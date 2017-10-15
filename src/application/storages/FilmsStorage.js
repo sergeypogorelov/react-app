@@ -1,39 +1,52 @@
-import DATA from '../_data/films';
+import axios from 'axios';
+import escapeStringRegexp from 'escape-string-regexp';
+
+import URL from '../helpers/URL';
+
+export const API_URL = 'http://localhost:3600/films';
 
 export default class FilmsStorage {
 
     static getItem(name) {
         return new Promise((resolve, reject) => {
-            let items = DATA.filter(i => i.name === name);
 
-            if (items.length === 0) {
-                resolve(null);
-            } else {
-                resolve(items[0]);
-            }
+            let params = {
+                name_like: escapeStringRegexp(name)
+            };
+            
+            axios.get(API_URL + URL.generateQuery(params))
+                .then(response => {
+                    resolve(response.data[0]);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+            
         });
     }
 
     static searchItem(strToSearch, searchType, searchSort) {
-
-        strToSearch = strToSearch || '';
-        searchType = searchType || 'title';
-        searchSort = searchSort || 'pubdate';
-
         return new Promise((resolve, reject) => {
-            if (strToSearch) {
 
-                let search = strToSearch.toLowerCase();
-                let items = DATA
-                    .filter(i => i[searchType].toLowerCase().indexOf(search) !== -1)
-                    .sort((a, b) => a[searchSort] > b[searchSort]);
+            strToSearch = strToSearch || '';
+            searchType = searchType || 'title';
+            searchSort = searchSort || 'pubdate';
 
-                resolve(items);
+            let params = {};
 
-            } else {
-                resolve([]);
-            }
+            params[searchType + '_like'] = escapeStringRegexp(strToSearch);
+
+            params._sort = searchSort;
+            params._order = 'asc';
+
+            axios.get(API_URL + URL.generateQuery(params))
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+            
         });
-        
     }
 }
