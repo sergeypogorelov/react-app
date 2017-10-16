@@ -32,6 +32,13 @@ export default class DetailsPage extends React.Component {
         this.loadPage(this.state.filmName);
     }
 
+    componentWillReceiveProps(newProps) {
+        if (this.props.match.params.name !== newProps.match.params.name) {
+            this.state.filmName = newProps.match.params.name;
+            this.loadPage(this.state.filmName);
+        }
+    }
+
     render() {
         return (
             <div className="wrapper">

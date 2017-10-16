@@ -23,14 +23,15 @@ export default class SearchPage extends React.Component {
     }
 
     componentWillMount() {
-        let params = URL.parseQuery(this.props.location.search);
-
-        this.state.searchQuery = this.props.match.params.query || '';
-        this.state.searchType = params.searchType || 'title';
-        this.state.searchSort = params.searchSort || 'pubdate';
+        this.initStateByProps(this.props);
     }
 
     componentDidMount() {
+        this.loadFilms(this.state.searchQuery, this.state.searchType, this.state.searchSort);
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.initStateByProps(newProps);
         this.loadFilms(this.state.searchQuery, this.state.searchType, this.state.searchSort);
     }
 
@@ -46,8 +47,6 @@ export default class SearchPage extends React.Component {
 
             let url = '/search/' + searchParams.searchQuery + URL.generateQuery(queryParams);
             this.props.history.push(url);
-
-            this.loadFilms(searchParams.searchQuery, searchParams.searchType, this.state.searchSort);
         }
     }
 
@@ -90,10 +89,21 @@ export default class SearchPage extends React.Component {
         });
     }
 
-    changeState(state) {
-        let obj = {};
-        Object.assign(obj, this.state, state);
-        this.setState(obj);
+    initStateByProps(props) {
+        let params = URL.parseQuery(props.location.search);
+        
+        this.state.searchQuery = props.match.params.query || '';
+        this.state.searchType = params.searchType || 'title';
+        this.state.searchSort = params.searchSort || 'pubdate';
+    }
+
+    changeState(stateToOverride) {
+        let currentState = this.state;
+        let newState = {
+            ...currentState,
+            ...stateToOverride
+        };
+        this.setState(newState);
     }
 
 }
