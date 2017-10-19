@@ -3,12 +3,14 @@ import escapeStringRegexp from 'escape-string-regexp';
 
 import URL from './URL';
 
-export const API_URL = 'http://localhost:3601/films';
+export const API_URL = 'http://localhost:3602/films';
 
 export default class FilmsAPI {
 
-    static getItem(name) {
+    static getByName(name) {
         return new Promise((resolve, reject) => {
+
+            name = name || '';
 
             let params = {
                 name_like: escapeStringRegexp(name)
@@ -16,7 +18,11 @@ export default class FilmsAPI {
             
             axios.get(API_URL + URL.generateQuery(params))
                 .then(response => {
-                    resolve(response.data[0]);
+                    if (response.data.length) {
+                        resolve(response.data[0]);
+                    } else {
+                        resolve({ notFound: true });
+                    }
                 })
                 .catch(error => {
                     reject(error);
@@ -25,12 +31,16 @@ export default class FilmsAPI {
         });
     }
 
-    static searchItem(strToSearch, searchType, searchSort) {
+    static search(strToSearch, searchType, searchSort) {
         return new Promise((resolve, reject) => {
 
             strToSearch = strToSearch || '';
             searchType = searchType || 'title';
             searchSort = searchSort || 'pubdate';
+
+            if (strToSearch === '') {
+                resolve([]);
+            }
 
             let params = {};
 

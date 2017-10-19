@@ -1,75 +1,63 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './DetailsPage.scss';
-
-import FilmsStorage from '../../storages/FilmsStorage';
 
 import FilmsList from '../../common/components/FilmsList/FilmsList.Component';
 import Footer from '../../common/components/Footer/Footer.Component';
 
+import NotFoundPage from '../NotFound/NotFoundPage.Component';
+
 import DetailsPageHeader from './DetailsPageHeader/DetailsPageHeader.Component';
 import DetailsPagePanel from './DetailsPagePanel/DetailsPagePanel.Component';
 
+import { loadFilm, loadRelatedFilms } from '../../common/actions/filmsActions';
+
+@connect(store => {
+    return {
+        film: store.films.currentItem,
+
+        filmLoaded: store.films.currentItemLoaded,
+        filmLoading: store.films.currentItemLoading,
+        filmNotLoaded: store.films.currentItemNotLoaded,
+
+        films: store.films.relatedItems,
+
+        filmsLoaded: store.films.relatedItemsLoaded,
+        filmsLoading: store.films.relatedItemsLoading,
+        filmsNotLoaded: store.films.relatedItemsNotLoaded
+    };
+})
 export default class DetailsPage extends React.Component {
 
-    constructor() {
-        super();
-        this.state = {
-            film: {},
-            filmName: '',
-            filmLoaded: false,
-
-            films: [],
-            filmsLoaded: false
-        };
-    }
-
-    componentWillMount() {
-        this.state.filmName = this.props.match.params.name;
-    }
-
     componentDidMount() {
-        this.loadPage(this.state.filmName);
+        this.props.dispatch(loadFilm(this.props.match.params.name));
     }
 
     componentWillReceiveProps(newProps) {
         if (this.props.match.params.name !== newProps.match.params.name) {
-            this.state.filmName = newProps.match.params.name;
-            this.loadPage(this.state.filmName);
+            this.props.dispatch(loadFilm(newProps.match.params.name));
+        }
+
+        if (this.props.film.director !== newProps.film.director) {
+            this.props.dispatch(loadRelatedFilms(newProps.film.director));
         }
     }
 
     render() {
+        if (this.props.film.notFound)
+            return <NotFoundPage />
+
         return (
             <div className="wrapper">
-                <DetailsPageHeader film={this.state.film} filmLoaded={this.state.filmLoaded} />
+                <DetailsPageHeader film={this.props.film} filmLoaded={this.props.filmLoaded} />
                 <div className="wrapper-content">
-                    <DetailsPagePanel film={this.state.film} filmLoaded={this.state.filmLoaded} />
-                    <FilmsList films={this.state.films} filmsLoaded={this.state.filmsLoaded} />
+                    <DetailsPagePanel film={this.props.film} filmLoaded={this.props.filmLoaded} />
+                    <FilmsList films={this.props.films} filmsLoading={this.props.filmsLoading} filmsLoaded={this.props.filmsLoaded} filmsNotLoaded={this.props.filmsNotLoaded} />
                 </div>
                 <Footer />
             </div>
         );
-    }
-
-    loadPage(filmName) {
-        this.changeState({ filmName, filmLoaded: false, filmsLoaded: false });
-        FilmsStorage.getItem(filmName).then(film => {
-            if (film) {
-                this.changeState({ film, filmLoaded: true });
-                FilmsStorage.searchItem(film.director, 'director').then(films => {
-                    this.changeState({ films, filmsLoaded: true });
-                });
-            } else {
-                /// TO-DO: go to 404 page
-            }
-        });
-    }
-
-    changeState(state) {
-        let obj = {};
-        Object.assign(obj, this.state, state);
-        this.setState(obj);
     }
 
 }

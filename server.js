@@ -3,7 +3,7 @@ const express = require('express');
 
 const config = require('./app.config');
 
-const PORT = 4652;
+const PORT = 4653;
 const APP = express();
 
 APP.use(express.static(config.paths.dist));

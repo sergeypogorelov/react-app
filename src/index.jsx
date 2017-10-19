@@ -14,7 +14,7 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import mainStore from './application/common/stores/mainStore';
 
 import SearchPage from './application/pages/SearchPage/SearchPage.Component';
-//import DetailsPage from './application/pages/DetailsPage/DetailsPage.Component';
+import DetailsPage from './application/pages/DetailsPage/DetailsPage.Component';
 import NotFoundPage from './application/pages/NotFound/NotFoundPage.Component';
 
 ReactDOM.render(
@@ -23,6 +23,7 @@ ReactDOM.render(
             <Switch>
                 <Route path="/" component={SearchPage} exact />
                 <Route path="/search/:query" component={SearchPage} />
+                <Route path="/film/:name" component={DetailsPage} />
                 <Route path="*" component={NotFoundPage} />
             </Switch>
         </Router>

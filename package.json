@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "build": "webpack",
-    "start-api": "json-server --watch db.json --port 3601",
+    "start-api": "json-server --watch db.json --port 3602",
     "start-app": "webpack && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -58,6 +58,11 @@ export default class SearchPage extends React.Component {
     }
 
     searchFormHandler(searchParams) {
+        if (searchParams.searchQuery === '') {
+            this.props.history.push('/');
+            return;
+        }
+
         let searchQueryChanged = this.searchQuery !== searchParams.searchQuery;
         let searchTypeChanged = this.searchType !== searchParams.searchType;
 
