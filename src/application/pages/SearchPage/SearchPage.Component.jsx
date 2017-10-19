@@ -1,10 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './SearchPage.scss';
 
 import URL from '../../helpers/URL';
-
-import FilmsStorage from '../../storages/FilmsStorage';
 
 import FilmsList from '../../common/components/FilmsList/FilmsList.Component';
 import Footer from '../../common/components/Footer/Footer.Component';
@@ -12,37 +11,60 @@ import Footer from '../../common/components/Footer/Footer.Component';
 import SearchPageHeader from './SearchPageHeader/SearchPageHeader.Component';
 import SearchPagePanel from './SearchPagePanel/SearchPagePanel.Component';
 
+import { loadFilms } from '../../common/actions/filmsActions';
+
+@connect(store => {
+    return {
+        films: store.films.items,
+
+        filmsLoaded: store.films.itemsLoaded,
+        filmsLoading: store.films.itemsLoading,
+        filmsNotLoaded: store.films.itemsNotLoaded
+    };
+})
 export default class SearchPage extends React.Component {
 
-    constructor() {
-        super();
-        this.state = {
-            films: [],
-            filmsLoaded: false
-        };
-    }
-
     componentWillMount() {
-        this.initStateByProps(this.props);
+        this.searchQuery = this.props.match.params.query || '';
+        
+        let params = URL.parseQuery(this.props.location.search);
+        this.searchType = params.searchType || 'title';
+        this.searchSort = params.searchSort || 'pubdate';
     }
 
     componentDidMount() {
-        this.loadFilms(this.state.searchQuery, this.state.searchType, this.state.searchSort);
+        this.props.dispatch(loadFilms(this.searchQuery, this.searchType, this.searchSort));
     }
 
     componentWillReceiveProps(newProps) {
-        this.initStateByProps(newProps);
-        this.loadFilms(this.state.searchQuery, this.state.searchType, this.state.searchSort);
+        let searchQuery = newProps.match.params.query || '';
+        
+        let params = URL.parseQuery(newProps.location.search);
+        let searchType = params.searchType || 'title';
+        let searchSort = params.searchSort || 'pubdate';
+
+        let searchQueryChanged = this.searchQuery !== searchQuery;
+        let searchTypeChanged = this.searchType !== searchType;
+        let searchSortChanged = this.searchSort !== searchSort;
+
+        if (searchQueryChanged || searchTypeChanged || searchSortChanged) {
+
+            this.searchQuery = searchQuery;
+            this.searchType = searchType;
+            this.searchSort = searchSort;
+
+            this.props.dispatch(loadFilms(searchQuery, searchType, searchSort));
+        }
     }
 
     searchFormHandler(searchParams) {
-        let searchQueryChanged = this.state.searchQuery !== searchParams.searchQuery;
-        let searchTypeChanged = this.state.searchType !== searchParams.searchType;
+        let searchQueryChanged = this.searchQuery !== searchParams.searchQuery;
+        let searchTypeChanged = this.searchType !== searchParams.searchType;
 
         if (searchQueryChanged || searchTypeChanged) {
             let queryParams = {
                 searchType: searchParams.searchType,
-                searchSort: this.state.searchSort
+                searchSort: this.searchSort
             };
 
             let url = '/search/' + searchParams.searchQuery + URL.generateQuery(queryParams);
@@ -51,59 +73,28 @@ export default class SearchPage extends React.Component {
     }
 
     searchPanelHandler(searchPanelParams) {
-        if (this.state.searchSort !== searchPanelParams.sortType) {
+        if (this.searchSort !== searchPanelParams.sortType) {
             let queryParams = {
-                searchType: this.state.searchType,
+                searchType: this.searchType,
                 searchSort: searchPanelParams.sortType
             };
 
-            let url = '/search/' + this.state.searchQuery + URL.generateQuery(queryParams);
+            let url = '/search/' + this.searchQuery + URL.generateQuery(queryParams);
             this.props.history.push(url);
-
-            this.loadFilms(this.state.searchQuery, this.state.searchType, searchPanelParams.sortType);
         }
     }
 
     render() {
         return (
             <div className="wrapper">
-                <SearchPageHeader query={this.state.searchQuery} type={this.state.searchType} onSubmit={this.searchFormHandler.bind(this)} />
+                <SearchPageHeader query={this.searchQuery} type={this.searchType} onSubmit={this.searchFormHandler.bind(this)} />
                 <div className="wrapper-content">
-                    <SearchPagePanel sortType={this.state.searchSort} films={this.state.films} filmsLoaded={this.state.filmsLoaded} onSortChange={this.searchPanelHandler.bind(this)} />
-                    <FilmsList films={this.state.films} filmsLoaded={this.state.filmsLoaded} />
+                    <SearchPagePanel sortType={this.props.searchSort} films={this.props.films} filmsLoaded={this.props.filmsLoaded} onSortChange={this.searchPanelHandler.bind(this)} />
+                    <FilmsList films={this.props.films} filmsLoading={this.props.filmsLoading} filmsLoaded={this.props.filmsLoaded} filmsNotLoaded={this.props.filmsNotLoaded} />
                 </div>
                 <Footer />
             </div>
         );
-    }
-
-    loadFilms(query, type, sort) {
-        this.changeState({
-            searchQuery: query,
-            searchType: type,
-            searchSort: sort,
-            filmsLoaded: false
-        });
-        FilmsStorage.searchItem(query, type, sort).then((films) => {
-            this.changeState({ films, filmsLoaded: true });
-        });
-    }
-
-    initStateByProps(props) {
-        let params = URL.parseQuery(props.location.search);
-        
-        this.state.searchQuery = props.match.params.query || '';
-        this.state.searchType = params.searchType || 'title';
-        this.state.searchSort = params.searchSort || 'pubdate';
-    }
-
-    changeState(stateToOverride) {
-        let currentState = this.state;
-        let newState = {
-            ...currentState,
-            ...stateToOverride
-        };
-        this.setState(newState);
     }
 
 }

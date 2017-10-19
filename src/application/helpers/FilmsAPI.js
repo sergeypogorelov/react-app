@@ -1,11 +1,11 @@
 import axios from 'axios';
 import escapeStringRegexp from 'escape-string-regexp';
 
-import URL from '../helpers/URL';
+import URL from './URL';
 
-export const API_URL = 'http://localhost:3600/films';
+export const API_URL = 'http://localhost:3601/films';
 
-export default class FilmsStorage {
+export default class FilmsAPI {
 
     static getItem(name) {
         return new Promise((resolve, reject) => {
@@ -37,7 +37,7 @@ export default class FilmsStorage {
             params[searchType + '_like'] = escapeStringRegexp(strToSearch);
 
             params._sort = searchSort;
-            params._order = 'asc';
+            params._order = 'desc';
 
             axios.get(API_URL + URL.generateQuery(params))
                 .then(response => {

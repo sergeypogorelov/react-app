@@ -2,8 +2,6 @@ import React from 'react';
 
 import './SearchPagePanel.scss';
 
-import FilmsStorage from '../../../storages/FilmsStorage';
-
 export default class SearchPagePanel extends React.Component {
     
     constructor() {

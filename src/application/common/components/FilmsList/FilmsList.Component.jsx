@@ -7,10 +7,15 @@ import FilmsListItem from './FilmsListItem/FilmsListItem.Component';
 export default class FilmsList extends React.Component {
 
     render() {
-        let notLoadedMessage = this.props.notLoadedMessage || 'Loading...';
+        let loadingMessage = this.props.loadingMessage || 'Loading...';
+        let notLoadedMessage = this.props.notLoadedMessage || 'Something\'s wrong';
         let notFoundMessage = this.props.notFoundMessage || 'No films found';
 
-        if (!this.props.filmsLoaded) {
+        if (this.props.filmsLoading) {
+            return <h1>{ loadingMessage }</h1>;
+        }
+
+        if (this.props.filmsNotLoaded) {
             return <h1>{ notLoadedMessage }</h1>;
         }
 

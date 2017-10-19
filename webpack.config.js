@@ -40,7 +40,8 @@ module.exports = {
                 loader: 'babel-loader',
                 include: [ config.paths.src ],
                 query: {
-                    presets: ['es2015', 'react']
+                    presets: ['es2015', 'react'],
+                    plugins: ['transform-decorators-legacy']
                 }
             },
             {

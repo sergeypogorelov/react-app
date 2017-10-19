@@ -1,8 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './SearchPageHeader.scss';
-
-import FilmsStorage from '../../../storages/FilmsStorage';
 
 export default class SearchPageHeader extends React.Component {
 
@@ -73,10 +72,13 @@ export default class SearchPageHeader extends React.Component {
         );
     }
 
-    changeState(state) {
-        let obj = {};
-        Object.assign(obj, this.state, state);
-        this.setState(obj);
+    changeState(stateToChange) {
+        let currentState = this.state;
+        let newState = {
+            ...currentState,
+            ...stateToChange
+        };
+        this.setState(newState);
     }
 
 }
