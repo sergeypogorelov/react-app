@@ -1,24 +1,32 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+
+import { configure, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import FilmsList from './FilmsList.Component';
 
-test('Some name of the test.', () => {
+configure({ adapter: new Adapter() });
+
+test('Component FilmsList works fine.', () => {
 
     const props = {
-        films: []
+        films: [],
+        filmsLoading: true,
+        filmsNotLoaded: false
     };
 
-    const component = renderer.create(
-        <FilmsList films={props.films} />
+    const wrapper = mount(
+        <FilmsList { ...props } />
     );
 
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    expect(wrapper.text()).toEqual('Loading...');
 
-    component.props.filmsNotLoaded = true;
+    wrapper.setProps({
+        films: [],
+        filmsLoading: false,
+        filmsNotLoaded: true
+    });
 
-    tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    expect(wrapper.text()).toEqual('Something\'s wrong');
     
 });
