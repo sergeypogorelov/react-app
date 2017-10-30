@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component DetailsPagePanel works fine. 1`] = `
+<div
+  className="info clearfix"
+>
+  <div
+    className="info-content"
+  >
+    Films by 
+    John Smith
+  </div>
+</div>
+`;
+
+exports[`Component DetailsPagePanel works fine. 2`] = `
+<div
+  className="info"
+/>
+`;

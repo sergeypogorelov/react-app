@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component DetailsPageHeader works fine. 1`] = `
+<div
+  className="wrapper-header details"
+>
+  <div
+    className="wrapper-header-background details"
+  >
+    <div
+      className="wrapper-header-content details"
+    >
+      <h1
+        className="wrapper-header-content-title details clearfix"
+      >
+        Netflix Roulete
+        <a
+          className="link"
+          href="#/"
+          onClick={[Function]}
+        >
+          SEARCH
+        </a>
+      </h1>
+      <div
+        className="wrapper-header-content-details"
+      >
+        <div
+          className="details clearfix"
+        >
+          <div
+            className="details-image"
+          >
+            <img
+              src="image"
+            />
+          </div>
+          <div
+            className="details-description"
+          >
+            <h3
+              className="details-description-title"
+            >
+              title
+              <span
+                className="details-description-rating"
+              />
+            </h3>
+            <p
+              className="details-description-genre"
+            >
+              genre
+            </p>
+            <p
+              className="details-description-info"
+            >
+              <span
+                className="details-description-year"
+              >
+                year
+              </span>
+              <span
+                className="details-description-duration"
+              >
+                 min
+              </span>
+            </p>
+            <p
+              className="details-description-text"
+            />
+            <div
+              className="details-description-small"
+            >
+              <p
+                className="small-text"
+              >
+                Director: 
+              </p>
+              <p
+                className="small-text"
+              >
+                Cast: 
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Component DetailsPageHeader works fine. 2`] = `
+<div
+  className="wrapper-header details"
+>
+  <div
+    className="wrapper-header-background details"
+  >
+    <div
+      className="wrapper-header-content details"
+    >
+      <h1
+        className="wrapper-header-content-title details clearfix"
+      >
+        Netflix Roulete
+        <a
+          className="link"
+          href="#/"
+          onClick={[Function]}
+        >
+          SEARCH
+        </a>
+      </h1>
+    </div>
+  </div>
+</div>
+`;

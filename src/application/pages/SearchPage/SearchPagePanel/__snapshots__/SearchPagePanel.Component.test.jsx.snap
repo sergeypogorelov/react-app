@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component SearchPagePanel works fine. 1`] = `
+<div
+  className="info"
+/>
+`;
+
+exports[`Component SearchPagePanel works fine. 2`] = `
+<div
+  className="info"
+/>
+`;

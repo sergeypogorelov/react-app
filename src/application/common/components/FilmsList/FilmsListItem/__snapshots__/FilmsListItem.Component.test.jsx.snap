@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component FilmsListItem works fine. 1`] = `
+<div
+  className="film"
+>
+  <div
+    className="film-poster"
+  >
+    <a
+      href="#/film/name"
+      onClick={[Function]}
+    >
+      <img
+        className="film-poster-image"
+        src="image"
+      />
+    </a>
+  </div>
+  <div
+    className="film-title clearfix"
+  >
+    <h4
+      className="film-title-content"
+    >
+      title
+    </h4>
+    <p
+      className="film-title-year"
+    >
+      year
+    </p>
+  </div>
+  <p
+    className="film-genre"
+  >
+    genre
+  </p>
+</div>
+`;
