@@ -13,16 +13,7 @@ import SearchPagePanel from './SearchPagePanel/SearchPagePanel.Component';
 
 import { loadFilms } from '../../common/actions/filmsActions';
 
-@connect(store => {
-    return {
-        films: store.films.items,
-
-        filmsLoaded: store.films.itemsLoaded,
-        filmsLoading: store.films.itemsLoading,
-        filmsNotLoaded: store.films.itemsNotLoaded
-    };
-})
-export default class SearchPage extends React.Component {
+export class SearchPage extends React.Component {
 
     componentWillMount() {
         this.searchQuery = this.props.match.params.query || '';
@@ -103,3 +94,15 @@ export default class SearchPage extends React.Component {
     }
 
 }
+
+export function mapStateToProps(store) {
+    return {
+        films: store.films.items,
+
+        filmsLoaded: store.films.itemsLoaded,
+        filmsLoading: store.films.itemsLoading,
+        filmsNotLoaded: store.films.itemsNotLoaded
+    };
+};
+
+export default connect(mapStateToProps)(SearchPage);
