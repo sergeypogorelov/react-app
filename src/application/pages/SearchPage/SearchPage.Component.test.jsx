@@ -1,14 +1,16 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom'
-import renderer from 'react-test-renderer';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 
-import filmsActionsMock from '../../common/actions/__mocks__/filmsActions';
-import filmsActions from '../../common/actions/filmsActions';
+import { configure, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
+import mainStore from '../../common/stores/mainStore';
 import { SearchPage } from './SearchPage.Component';
 
-jest.mock('../../common/actions/filmsActions', () => jest.fn());
-filmsActions.mockImplementation(() => filmsActionsMock);
+jest.mock('filmsActions');
+
+configure({ adapter: new Adapter() });
 
 test('Component SearchPage works fine.', () => {
 
@@ -17,16 +19,26 @@ test('Component SearchPage works fine.', () => {
 
         filmsLoaded: false,
         filmsLoading: false,
-        filmsNotLoaded: false
+        filmsNotLoaded: false,
+
+        match: {
+            params: {
+                query: 'header'
+            }
+        },
+        location: {
+            search: '?searchType=title&searchSort=rating'
+        }
     };
 
-    let component = renderer.create(
-        <MemoryRouter initialEntries={['/']} initialIndex={0}>
-            <SearchPage { ...props } />
-        </MemoryRouter>
+    let wrapper = mount(
+        <Provider store={mainStore}>
+            <MemoryRouter>
+                <SearchPage { ...props } />
+            </MemoryRouter>
+        </Provider>
     );
 
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    console.log(wrapper);
 
 });

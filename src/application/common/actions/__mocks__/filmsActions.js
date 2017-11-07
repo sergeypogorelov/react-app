@@ -27,7 +27,9 @@ const MOCKED_DATA = [
     },
 ];
 
-export function loadFilm(name) {
+const m = jest.genMockFromModule('filmsActions');
+
+m.loadFilm = function(name) {
     return {
         type: 'LOAD_FILM',
         payload: new Promise((resolve, reject) => {
@@ -36,7 +38,7 @@ export function loadFilm(name) {
     };
 }
 
-export function loadFilms(query, filter, sort) {
+m.loadFilms = function(query, filter, sort) {
     return {
         type: 'LOAD_FILMS',
         payload: new Promise((resolve, reject) => {
@@ -45,7 +47,7 @@ export function loadFilms(query, filter, sort) {
     }
 }
 
-export function loadRelatedFilms(director) {
+m.loadRelatedFilms = function(director) {
     return {
         type: 'LOAD_RELATED_FILMS',
         payload: new Promise((resolve, reject) => {
@@ -54,6 +56,4 @@ export function loadRelatedFilms(director) {
     }
 }
 
-export default {
-    loadFilm, loadFilms, loadRelatedFilms
-};
+module.exports = m;
