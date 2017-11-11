@@ -1,6 +1,4 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -28,15 +26,12 @@ test('Component SearchPage works fine.', () => {
         },
         location: {
             search: '?searchType=title&searchSort=rating'
-        }
+        },
+        dispatch: mainStore.dispatch
     };
 
     let wrapper = mount(
-        <Provider store={mainStore}>
-            <MemoryRouter>
-                <SearchPage { ...props } />
-            </MemoryRouter>
-        </Provider>
+        <SearchPage { ...props } />
     );
 
     console.log(wrapper);
