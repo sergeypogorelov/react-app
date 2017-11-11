@@ -1,15 +1,22 @@
 import React from 'react';
+import { MemoryRouter as Router } from 'react-router-dom';
 
 import renderer from 'react-test-renderer';
 
 import mainStore from '../../common/stores/mainStore';
-import { SearchPage } from './SearchPage.Component';
+import { DetailsPage } from './DetailsPage.Component';
 
 jest.mock('filmsActions');
 
-test('Component SearchPage works fine.', () => {
+test('Component DetailsPage works fine.', () => {
 
     const props = {
+        film: [],
+        
+        filmLoaded: false,
+        filmLoading: false,
+        filmNotLoaded: false,
+
         films: [],
 
         filmsLoaded: false,
@@ -24,20 +31,26 @@ test('Component SearchPage works fine.', () => {
         location: {
             search: ''
         },
+
         dispatch: mainStore.dispatch
     };
 
     let component = renderer.create(
-        <SearchPage { ...props } />
+        <Router>
+            <DetailsPage { ...props } />
+        </Router>
     );
 
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
 
+    props.filmNotLoaded = true;
     props.filmsNotLoaded = true;
 
     component = renderer.create(
-        <SearchPage { ...props } />
+        <Router>
+            <DetailsPage { ...props } />
+        </Router>
     );
 
     tree = component.toJSON();

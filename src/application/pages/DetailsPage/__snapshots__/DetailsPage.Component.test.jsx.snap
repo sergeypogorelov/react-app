@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component DetailsPage works fine. 1`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="wrapper-header details"
+  >
+    <div
+      className="wrapper-header-background details"
+    >
+      <div
+        className="wrapper-header-content details"
+      >
+        <h1
+          className="wrapper-header-content-title details clearfix"
+        >
+          Netflix Roulete
+          <a
+            className="link"
+            href="/"
+            onClick={[Function]}
+          >
+            SEARCH
+          </a>
+        </h1>
+      </div>
+    </div>
+  </div>
+  <div
+    className="wrapper-content"
+  >
+    <div
+      className="info"
+    />
+    <h1>
+      No films found
+    </h1>
+  </div>
+  <div
+    className="wrapper-footer"
+  >
+    <p
+      className="wrapper-footer-content"
+    >
+      Netflix Roulete
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Component DetailsPage works fine. 2`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="wrapper-header details"
+  >
+    <div
+      className="wrapper-header-background details"
+    >
+      <div
+        className="wrapper-header-content details"
+      >
+        <h1
+          className="wrapper-header-content-title details clearfix"
+        >
+          Netflix Roulete
+          <a
+            className="link"
+            href="/"
+            onClick={[Function]}
+          >
+            SEARCH
+          </a>
+        </h1>
+      </div>
+    </div>
+  </div>
+  <div
+    className="wrapper-content"
+  >
+    <div
+      className="info"
+    />
+    <h1>
+      Something's wrong
+    </h1>
+  </div>
+  <div
+    className="wrapper-footer"
+  >
+    <p
+      className="wrapper-footer-content"
+    >
+      Netflix Roulete
+    </p>
+  </div>
+</div>
+`;

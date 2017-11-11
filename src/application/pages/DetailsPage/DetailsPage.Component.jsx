@@ -13,22 +13,7 @@ import DetailsPagePanel from './DetailsPagePanel/DetailsPagePanel.Component';
 
 import { loadFilm, loadRelatedFilms } from '../../common/actions/filmsActions';
 
-@connect(store => {
-    return {
-        film: store.films.currentItem,
-
-        filmLoaded: store.films.currentItemLoaded,
-        filmLoading: store.films.currentItemLoading,
-        filmNotLoaded: store.films.currentItemNotLoaded,
-
-        films: store.films.relatedItems,
-
-        filmsLoaded: store.films.relatedItemsLoaded,
-        filmsLoading: store.films.relatedItemsLoading,
-        filmsNotLoaded: store.films.relatedItemsNotLoaded
-    };
-})
-export default class DetailsPage extends React.Component {
+export class DetailsPage extends React.Component {
 
     componentDidMount() {
         this.props.dispatch(loadFilm(this.props.match.params.name));
@@ -61,3 +46,21 @@ export default class DetailsPage extends React.Component {
     }
 
 }
+
+export function mapStateToProps(store) {
+    return {
+        film: store.films.currentItem,
+
+        filmLoaded: store.films.currentItemLoaded,
+        filmLoading: store.films.currentItemLoading,
+        filmNotLoaded: store.films.currentItemNotLoaded,
+
+        films: store.films.relatedItems,
+
+        filmsLoaded: store.films.relatedItemsLoaded,
+        filmsLoading: store.films.relatedItemsLoading,
+        filmsNotLoaded: store.films.relatedItemsNotLoaded
+    };
+}
+
+export default connect(mapStateToProps)(DetailsPage);
