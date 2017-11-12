@@ -4,7 +4,7 @@
   "description": "A simple React application",
   "main": "webpack.config.js",
   "scripts": {
-    "start-api": "json-server --watch src/server/db.json --port 3602",
+    "start-api": "json-server --watch src/server/db.json --port 3604",
     "start-app": "webpack && babel-node src/server/index.jsx --presets es2015,stage-2",
     "build": "webpack",
     "test": "jest"
@@ -42,6 +42,7 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-require-ignore": "^0.1.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",

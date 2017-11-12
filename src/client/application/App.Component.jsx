@@ -15,11 +15,15 @@ import NotFoundPage from './pages/NotFound/NotFoundPage.Component';
 export default class App extends React.Component {
 
     render() {
+
+        let preventMount = !!this.props.preventMount;
+        let extraProps = { preventMount };
+
         return (
             <Switch>
-                <Route path="/" component={SearchPage} exact />
-                <Route path="/search/:query" component={SearchPage} />
-                <Route path="/film/:name" component={DetailsPage} />
+                <Route path="/" exact render={ (props) => (<SearchPage {...props} data={extraProps} />) } />
+                <Route path="/search/:query" render={ (props) => (<SearchPage {...props} data={extraProps} />) } />
+                <Route path="/film/:name" render={ (props) => (<DetailsPage {...props} data={extraProps} />) } />
                 <Route path="*" component={NotFoundPage} />
             </Switch>
         );

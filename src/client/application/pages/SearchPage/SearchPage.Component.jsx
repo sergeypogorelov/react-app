@@ -21,12 +21,12 @@ export class SearchPage extends React.Component {
         let params = URL.parseQuery(this.props.location.search);
         this.searchType = params.searchType || 'title';
         this.searchSort = params.searchSort || 'pubdate';
-    }
 
-    componentDidMount() {
-        this.props.dispatch(loadFilms(this.searchQuery, this.searchType, this.searchSort));
+        if (!this.props.preventMount) {
+            this.props.dispatch(loadFilms(this.searchQuery, this.searchType, this.searchSort));
+        }
     }
-
+    
     componentWillReceiveProps(newProps) {
         let searchQuery = newProps.match.params.query || '';
         

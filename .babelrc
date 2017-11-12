@@ -4,6 +4,10 @@
         "react"
     ],
     "plugins": [
+        [
+            "babel-plugin-transform-require-ignore",
+            { "extensions": [".jpg", ".scss"] }
+        ],
         "transform-object-rest-spread",
         "transform-decorators-legacy"
     ]

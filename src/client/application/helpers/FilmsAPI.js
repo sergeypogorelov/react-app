@@ -3,7 +3,7 @@ import escapeStringRegexp from 'escape-string-regexp';
 
 import URL from './URL';
 
-export const API_URL = 'http://localhost:3602/films';
+export const API_URL = 'http://localhost:3604/films';
 
 export default class FilmsAPI {
 

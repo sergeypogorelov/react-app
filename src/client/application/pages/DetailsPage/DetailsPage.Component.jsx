@@ -15,8 +15,10 @@ import { loadFilm, loadRelatedFilms } from '../../common/actions/filmsActions';
 
 export class DetailsPage extends React.Component {
 
-    componentDidMount() {
-        this.props.dispatch(loadFilm(this.props.match.params.name));
+    componentWillMount() {
+        if (!this.props.preventMount) {
+            this.props.dispatch(loadFilm(this.props.match.params.name));
+        }
     }
 
     componentWillReceiveProps(newProps) {
