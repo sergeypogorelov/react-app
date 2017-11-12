@@ -4,8 +4,8 @@
   "description": "A simple React application",
   "main": "webpack.config.js",
   "scripts": {
-    "start-api": "json-server --watch db.json --port 3602",
-    "start-app": "webpack && node server.js",
+    "start-api": "json-server --watch src/server/db.json --port 3602",
+    "start-app": "webpack && node src/server/index.js",
     "build": "webpack",
     "test": "jest"
   },

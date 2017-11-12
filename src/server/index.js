@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 
-const config = require('./app.config');
+const config = require('../../app.config');
 
 const PORT = 4653;
 const APP = express();
@@ -14,4 +14,4 @@ APP.get('*', function(req, res) {
 
 APP.listen(PORT);
 
-console.log('Express server is listening on port "' + PORT + '".');
+console.log(`Express server is listening on port ${PORT}.`);

@@ -6,7 +6,7 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const config = require('./app.config');
 
 module.exports = {
-    context: config.paths.src,
+    context: config.paths.client,
     entry: {
         index: './index'
     },
@@ -59,7 +59,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             hash: true,
             title: 'index.html',
-            template: path.join(config.paths.src, 'index.html')
+            template: path.join(config.paths.client, 'index.html')
         })
     ],
     watch: false
