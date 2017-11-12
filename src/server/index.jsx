@@ -1,7 +1,7 @@
-const path = require('path');
-const express = require('express');
+import path from 'path';
+import express from 'express';
 
-const config = require('../../app.config');
+import config from '../../app.config';
 
 const PORT = 4653;
 const APP = express();
