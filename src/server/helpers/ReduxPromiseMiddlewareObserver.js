@@ -21,17 +21,33 @@ export default class ReduxPromiseMiddlewareObserver {
 
     waitForAllPromisesDone() {
         return new Promise((resolve, reject) => {
-            console.log('Wait for promises resolved.');
-            Promise.all(this.promises)
-                .then(result => {
-                    console.log('Promises resolved.');
-                    resolve(result);
+            this.handler(resolve, reject);
+        });
+    }
+
+    handler(resolve, reject) {
+
+        if (this.promises.length) {
+
+            let promises = this.promises;
+            this.promises = [];
+
+            Promise.all(promises)
+                .then(() => {
+                    if (this.promises.length) {
+                        this.handler(resolve, reject);
+                    } else {
+                        resolve();
+                    }
                 })
                 .catch(error => {
-                    console.error(error);
                     reject(error);
                 });
-        });
+
+        } else {
+            resolve();
+        }
+
     }
 
     init() {

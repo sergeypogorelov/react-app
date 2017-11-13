@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import './DetailsPage.scss';
 
+import SSR from '../../helpers/SSR';
+
 import FilmsList from '../../common/components/FilmsList/FilmsList.Component';
 import Footer from '../../common/components/Footer/Footer.Component';
 
@@ -16,9 +18,23 @@ import { loadFilm, loadRelatedFilms } from '../../common/actions/filmsActions';
 export class DetailsPage extends React.Component {
 
     componentWillMount() {
-        if (!this.props.preventMount) {
-            this.props.dispatch(loadFilm(this.props.match.params.name));
+
+        if (!this.props.data.preventDispatch && !SSR.checkOnFirstLoad()) {
+
+            let promise = this.props.dispatch(loadFilm(this.props.match.params.name));
+
+            /// since componentWillReceiveProps doesn't work on the server side
+            /// we have to load the related films manually
+            if (SSR.isServerExecution) {
+                promise.then(result => {
+                    if (!result.value.notFound) {
+                        this.props.dispatch(loadRelatedFilms(result.value.director));
+                    }
+                });
+            }
+
         }
+
     }
 
     componentWillReceiveProps(newProps) {

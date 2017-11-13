@@ -27,9 +27,11 @@ console.log(`Express server is listening on port ${PORT}.`);
 ///
 
 function handleRequest(req, res, next) {
-    console.log(`Request: ${req.url}`);
+    const url = decodeURIComponent(req.url);
 
-    if (STATIC_RESOURCES_REGEX.test(req.url)) {
+    console.log(`Request: ${url}`);
+
+    if (STATIC_RESOURCES_REGEX.test(url)) {
         console.log('Static resource detected.');
         return next();
     }
@@ -49,17 +51,13 @@ function handleRequest(req, res, next) {
 
     renderToString(
         <Provider store={store}>
-            <Router location={req.url} context={context}>
-                <App />
+            <Router location={url} context={context}>
+                <App preventDispatch={false} />
             </Router>
         </Provider>
     );
 
     console.log('Stop fake rendering.');
-
-    observer.stop();
-
-    console.log('Stop observing.');
 
     if (context.url) {
         res.redirect(context.url);
@@ -67,6 +65,8 @@ function handleRequest(req, res, next) {
         observer.waitForAllPromisesDone()
             .then(() => {
                 console.log('Stop waiting.');
+
+                console.log('Start real rendering.');
 
                 // Render the component to a string
                 let html = renderToString(
@@ -76,6 +76,8 @@ function handleRequest(req, res, next) {
                         </Router>
                     </Provider>
                 );
+
+                console.log('Stop real rendering.');
 
                 // Grab the initial state from our Redux store
                 let preloadedState = store.getState();
@@ -105,6 +107,7 @@ function renderFullPage(html, preloadedState) {
             <body>
                 <div id="app">${html}</div>
                 <script>
+                    window.__FIRST_LOAD__ = true
                     window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
                 </script>
                 <script src="/index.bundle.js"></script>

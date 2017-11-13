@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './SearchPage.scss';
 
 import URL from '../../helpers/URL';
+import SSR from '../../helpers/SSR';
 
 import FilmsList from '../../common/components/FilmsList/FilmsList.Component';
 import Footer from '../../common/components/Footer/Footer.Component';
@@ -22,7 +23,7 @@ export class SearchPage extends React.Component {
         this.searchType = params.searchType || 'title';
         this.searchSort = params.searchSort || 'pubdate';
 
-        if (!this.props.data.preventDispatch) {
+        if (!this.props.data.preventDispatch && !SSR.checkOnFirstLoad()) {
             this.props.dispatch(loadFilms(this.searchQuery, this.searchType, this.searchSort));
         }
     }

@@ -16,7 +16,7 @@ export default class App extends React.Component {
 
     render() {
 
-        let preventDispatch = !!this.props.preventDispatch;
+        let preventDispatch = this.props.preventDispatch;
         let extraProps = { preventDispatch };
 
         return (

@@ -19,7 +19,7 @@ let mainStore = configureStore({
 hydrate(
     <Provider store={mainStore}>
         <Router>
-            <App />
+            <App preventDispatch={false} />
         </Router>
     </Provider>,
     document.getElementById('app')

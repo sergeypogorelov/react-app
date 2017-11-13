@@ -16,12 +16,12 @@ export function configureStore(params) {
             return createStore(reducer, initialState, applyMiddleware(middleware, reduxPromiseMiddleware()));
         }
 
-        console.log('Store without middleware.');
+        console.log('Store with initialState.');
         return createStore(reducer, initialState, applyMiddleware(reduxPromiseMiddleware()));
     }
 
     if (middleware) {
-        console.log('Store without initialState.');
+        console.log('Store with middleware.');
         return createStore(reducer, applyMiddleware(middleware, reduxPromiseMiddleware()));
     }
 
