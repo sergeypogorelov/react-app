@@ -12,20 +12,20 @@ export function configureStore(params) {
 
     if (initialState) {
         if (middleware) {
-            console.log('store is full...');
+            console.log('Store is full.');
             return createStore(reducer, initialState, applyMiddleware(middleware, reduxPromiseMiddleware()));
         }
 
-        console.log('store without middleware...');
+        console.log('Store without middleware.');
         return createStore(reducer, initialState, applyMiddleware(reduxPromiseMiddleware()));
     }
 
     if (middleware) {
-        console.log('store without initialState...');
+        console.log('Store without initialState.');
         return createStore(reducer, applyMiddleware(middleware, reduxPromiseMiddleware()));
     }
 
-    console.log('store is empty...');
+    console.log('Store is empty.');
     return createStore(reducer, applyMiddleware(reduxPromiseMiddleware()));
 }
 

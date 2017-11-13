@@ -16,23 +16,32 @@ import reduxPromiseMiddlewareAdapterForSSR from './middlewares/reduxPromiseMiddl
 
 const PORT = 4655;
 const APPLICATION = express();
+const STATIC_RESOURCES_REGEX = /\.(:?css|js|jpg|ico)$/;
 
-APPLICATION.get('/index.html', handleRequest);
+APPLICATION.use(handleRequest);
 APPLICATION.use(express.static(config.paths.dist));
-APPLICATION.get('/*', handleRequest);
 APPLICATION.listen(PORT);
 
 console.log(`Express server is listening on port ${PORT}.`);
 
 ///
 
-function handleRequest(req, res) {
+function handleRequest(req, res, next) {
+    console.log(`Request: ${req.url}`);
+
+    if (STATIC_RESOURCES_REGEX.test(req.url)) {
+        console.log('Static resource detected.');
+        return next();
+    }
+
     let observer = new ReduxPromiseMiddlewareObserver();
 
     let context = {};
     let store = configureStore({
         middleware: reduxPromiseMiddlewareAdapterForSSR(observer)
     });
+
+    console.log('Start observing.');
 
     observer.start();
 
@@ -48,6 +57,10 @@ function handleRequest(req, res) {
 
     console.log('Stop fake rendering.');
 
+    observer.stop();
+
+    console.log('Stop observing.');
+
     if (context.url) {
         res.redirect(context.url);
     } else {
@@ -55,13 +68,11 @@ function handleRequest(req, res) {
             .then(() => {
                 console.log('Stop waiting.');
 
-                observer.stop();
-
                 // Render the component to a string
                 let html = renderToString(
                     <Provider store={store}>
                         <Router location={req.url} context={context}>
-                            <App preventMount={true} />
+                            <App preventDispatch={true} />
                         </Router>
                     </Provider>
                 );
@@ -81,7 +92,6 @@ function handleRequest(req, res) {
 
     console.log('Start waiting.');
 
-    
 }
 
 function renderFullPage(html, preloadedState) {

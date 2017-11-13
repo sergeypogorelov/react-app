@@ -22,7 +22,7 @@ export class SearchPage extends React.Component {
         this.searchType = params.searchType || 'title';
         this.searchSort = params.searchSort || 'pubdate';
 
-        if (!this.props.preventMount) {
+        if (!this.props.data.preventDispatch) {
             this.props.dispatch(loadFilms(this.searchQuery, this.searchType, this.searchSort));
         }
     }

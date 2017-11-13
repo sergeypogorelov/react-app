@@ -16,8 +16,8 @@ export default class App extends React.Component {
 
     render() {
 
-        let preventMount = !!this.props.preventMount;
-        let extraProps = { preventMount };
+        let preventDispatch = !!this.props.preventDispatch;
+        let extraProps = { preventDispatch };
 
         return (
             <Switch>
