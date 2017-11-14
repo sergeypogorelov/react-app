@@ -7,5 +7,3 @@ To get this application up and running, execute commands provided below.
 Then in a new window, execute the following command.
 
 > npm run start-app
-
-If you're running into an issue, try changing the port in server.js.
