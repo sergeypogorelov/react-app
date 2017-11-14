@@ -1,3 +1,5 @@
+import './init-babel';
+
 import React from 'react';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
@@ -71,7 +73,7 @@ function handleRequest(req, res, next) {
                 // Render the component to a string
                 let html = renderToString(
                     <Provider store={store}>
-                        <Router location={req.url} context={context}>
+                        <Router location={url} context={context}>
                             <App preventDispatch={true} />
                         </Router>
                     </Provider>
@@ -102,7 +104,7 @@ function renderFullPage(html, preloadedState) {
         <html>
             <head>
                 <title>Test</title>
-                <link href="/index.css">
+                <link href="/index.css" rel="stylesheet">
             </head>
             <body>
                 <div id="app">${html}</div>

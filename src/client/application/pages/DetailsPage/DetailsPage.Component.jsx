@@ -25,7 +25,7 @@ export class DetailsPage extends React.Component {
 
             /// since componentWillReceiveProps doesn't work on the server side
             /// we have to load the related films manually
-            if (SSR.isServerExecution) {
+            if (SSR.isServerExecution()) {
                 promise.then(result => {
                     if (!result.value.notFound) {
                         this.props.dispatch(loadRelatedFilms(result.value.director));
