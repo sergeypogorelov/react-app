@@ -23,16 +23,21 @@ test('Component DetailsPage works fine.', () => {
         filmsLoading: false,
         filmsNotLoaded: false,
 
+        dispatch: mainStore.dispatch,
+
         match: {
             params: {
                 query: ''
             }
         },
+
         location: {
             search: ''
         },
 
-        dispatch: mainStore.dispatch
+        data: {
+            preventDispatch: true
+        }
     };
 
     let component = renderer.create(
